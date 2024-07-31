@@ -1,5 +1,5 @@
 {
-    "name": "vendor/news",
+    "name": "divotek_smart/news-module",
     "description": "News module",
     "type": "laravel-module",
     "license": "MIT",

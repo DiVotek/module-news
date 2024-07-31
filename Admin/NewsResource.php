@@ -2,11 +2,8 @@
 
 namespace Modules\News\Admin;
 
-use App\Filament\Resources\NewsResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers\ReviewsRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\SeoRelationManager;
 use App\Filament\Resources\TranslateResource\RelationManagers\TranslatableRelationManager;
-use App\Models\News;
 use App\Services\Schema;
 use App\Services\TableSchema;
 use Filament\Forms\Components\Section;
@@ -17,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\News\Models\News;
 
 class NewsResource extends Resource
 {

@@ -3,6 +3,7 @@
 namespace Modules\News\Providers;
 
 use App;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class NewsServiceProvider extends ServiceProvider
@@ -12,9 +13,7 @@ class NewsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrations();
-        $this->publishes([
-            __DIR__ . '/../Admin' => base_path('app/Filament/Resources'),
-        ], 'your-module-admin');
+        Route::middleware('web')->group(module_path('News', 'routes/web.php'));
     }
 
     public function register(): void

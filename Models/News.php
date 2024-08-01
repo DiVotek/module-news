@@ -2,7 +2,9 @@
 
 namespace Modules\News\Models;
 
+use App\Models\StaticPage;
 use App\Traits\HasBreadcrumbs;
+use App\Traits\HasRoute;
 use App\Traits\HasSlug;
 use App\Traits\HasSorting;
 use App\Traits\HasStatus;
@@ -24,10 +26,8 @@ class News extends Model
     use HasStatus;
     use HasViews;
     use HasSeo;
-
-    public const TABLE = 'news';
-
-    protected $table = self::TABLE;
+    use HasTable;
+    use HasRoute;
 
     protected $fillable = [
         'name',
@@ -37,20 +37,23 @@ class News extends Model
         'status',
         'views',
         'source',
-        'authors'
+        'author'
     ];
-
-    protected $casts = ['authors' => 'array'];
 
     public function getBreadcrumbs(): array
     {
         return [
+            '/' . news_slug() => StaticPage::query()->slug(news_slug())->first()->name ?? 'News',
             $this->slug => $this->name
         ];
     }
 
     public static function getDb(): string
     {
-        return 'News';
+        return 'news';
+    }
+    public function route(): string
+    {
+        return tRoute('news-post', ['post' => $this->slug]);
     }
 }

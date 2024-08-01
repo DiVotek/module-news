@@ -2,8 +2,8 @@
 
 namespace Modules\News\Admin;
 
-use App\Filament\Resources\ProductResource\RelationManagers\SeoRelationManager;
 use App\Filament\Resources\TranslateResource\RelationManagers\TranslatableRelationManager;
+use App\Models\Setting;
 use App\Services\Schema;
 use App\Services\TableSchema;
 use Filament\Forms\Components\Section;
@@ -15,10 +15,16 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\News\Models\News;
+use Modules\Seo\Admin\SeoResource\Pages\SeoRelationManager;
 
 class NewsResource extends Resource
 {
     protected static ?string $model = News::class;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Info pages');
+    }
 
     public static function getNavigationBadge(): ?string
     {
@@ -78,7 +84,34 @@ class NewsResource extends Resource
                     ->icon('heroicon-o-eye')
                     ->url(function ($record) {
                         return '/news/' . $record->slug;
-                    }),
+                    })->openUrlInNewTab(),
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('Template')
+                    ->slideOver()
+                    ->icon('heroicon-o-cog')
+                    ->fillForm(function (): array {
+                        return [
+                            'template' => setting(config('settings.news.template'),[]),
+                            'design' => setting(config('settings.news.design'),'Zero')
+                        ];
+                    })
+                    ->action(function (array $data): void {
+                        setting([
+                            config('settings.news.template') => $data['template'],
+                            config('settings.news.design') => $data['design']
+                        ]);
+                        Setting::updatedSettings();
+                    })
+                    ->form(function ($form) {
+                        return $form
+                            ->schema([
+                                Section::make('')->schema([
+                                    Schema::getModuleTemplateSelect('Pages/NewsPost'),
+                                    Schema::getTemplateBuilder()->label(__('Template')),
+                                ]),
+                            ]);
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

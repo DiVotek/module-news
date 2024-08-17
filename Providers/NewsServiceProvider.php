@@ -14,6 +14,7 @@ class NewsServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
         Route::middleware('web')->group(module_path('News', 'routes/web.php'));
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'news');
     }
 
     public function register(): void

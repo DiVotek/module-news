@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('author')->nullable();
             News::timestampFields($table);
         });
-        StaticPage::createSystemPage('News','news');
+        StaticPage::createSystemPage('News','news::news-component');
     }
 
     public function down(): void

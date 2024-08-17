@@ -16,8 +16,6 @@ class NewsPostPage extends PageComponent
         if (empty($entity->template)) {
             $entity->template = setting(config('settings.news.template'), []);
         }
-        $component = setting(config('settings.news.design'), 'Zero');
-        $component = 'template.' . strtolower(template()) . '.pages.news-post.' . strtolower($component);
-        parent::__construct($entity, $component);
+        parent::__construct($entity, 'news::news-post-component');
     }
 }

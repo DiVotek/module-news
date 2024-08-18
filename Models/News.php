@@ -12,6 +12,7 @@ use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasTable;
+use App\Traits\HasTemplate;
 use App\Traits\HasTimestamps;
 use Modules\Seo\Traits\HasSeo;
 
@@ -28,6 +29,7 @@ class News extends Model
     use HasSeo;
     use HasTable;
     use HasRoute;
+    use HasTemplate;
 
     protected $fillable = [
         'name',

@@ -7,7 +7,7 @@
                {{$news->seo->heading ?? $news->name}}</h1>
             <div class="pt-2.5 px-2.5 max-md:px-5 pb-11 bg-base-content/10 mb-[4.5rem]">
                <div class="aspect-w-4 aspect-h-2 mb-[1.125rem]">
-                  <x-core.image src="{{$news->image}}" width="100" height="100" alt="{{$news->name}}"
+                  <x-image src="{{$news->image}}" width="100" height="100" alt="{{$news->name}}"
                      class="size-full object-cover" />
                </div>
                <p class="text-base sm:text-xl font-medium text-justify text-base-content">

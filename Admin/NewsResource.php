@@ -2,6 +2,7 @@
 
 namespace Modules\News\Admin;
 
+use App\Filament\Resources\StaticPageResource\RelationManagers\TemplateRelationManager;
 use App\Filament\Resources\TranslateResource\RelationManagers\TranslatableRelationManager;
 use App\Models\Setting;
 use App\Services\Schema;
@@ -125,7 +126,8 @@ class NewsResource extends Resource
         return [
             RelationGroup::make('Seo and translates', [
                 TranslatableRelationManager::class,
-                SeoRelationManager::class
+                SeoRelationManager::class,
+                TemplateRelationManager::class,
             ]),
         ];
     }

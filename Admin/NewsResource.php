@@ -2,7 +2,6 @@
 
 namespace Modules\News\Admin;
 
-use App\Filament\Resources\StaticPageResource\RelationManagers\TemplateRelationManager;
 use App\Filament\Resources\TranslateResource\RelationManagers\TranslatableRelationManager;
 use App\Models\Setting;
 use App\Services\Schema;
@@ -16,6 +15,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\News\Models\News;
+use Modules\Search\Admin\TagResource\RelationManagers\TagRelationManager;
 use Modules\Seo\Admin\SeoResource\Pages\SeoRelationManager;
 
 class NewsResource extends Resource
@@ -71,7 +71,7 @@ class NewsResource extends Resource
                 TableSchema::getStatus(),
                 TableSchema::getSorting(),
                 TableSchema::getViews(),
-                TableSchema::getUpdatedAt()
+                TableSchema::getUpdatedAt(),
             ])
             ->reorderable('sorting')
             ->filters([
@@ -93,14 +93,14 @@ class NewsResource extends Resource
                     ->icon('heroicon-o-cog')
                     ->fillForm(function (): array {
                         return [
-                            'template' => setting(config('settings.news.template'),[]),
-                            'design' => setting(config('settings.news.design'),'Zero')
+                            'template' => setting(config('settings.news.template'), []),
+                            'design' => setting(config('settings.news.design'), 'Zero'),
                         ];
                     })
                     ->action(function (array $data): void {
                         setting([
                             config('settings.news.template') => $data['template'],
-                            config('settings.news.design') => $data['design']
+                            config('settings.news.design') => $data['design'],
                         ]);
                         Setting::updatedSettings();
                     })
@@ -112,7 +112,7 @@ class NewsResource extends Resource
                                     Schema::getTemplateBuilder()->label(__('Template')),
                                 ]),
                             ]);
-                    })
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -127,7 +127,7 @@ class NewsResource extends Resource
             RelationGroup::make('Seo and translates', [
                 TranslatableRelationManager::class,
                 SeoRelationManager::class,
-                TemplateRelationManager::class,
+                TagRelationManager::class,
             ]),
         ];
     }

@@ -8,28 +8,28 @@ use App\Traits\HasRoute;
 use App\Traits\HasSlug;
 use App\Traits\HasSorting;
 use App\Traits\HasStatus;
+use App\Traits\HasTable;
+use App\Traits\HasTags;
+use App\Traits\HasTimestamps;
 use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasTable;
-use App\Traits\HasTemplate;
-use App\Traits\HasTimestamps;
 use Modules\Seo\Traits\HasSeo;
 
 class News extends Model
 {
-    use HasFactory;
     use HasBreadcrumbs;
-    use HasTimestamps;
-    use HasTable;
+    use HasFactory;
+    use HasRoute;
+    use HasSeo;
     use HasSlug;
     use HasSorting;
     use HasStatus;
-    use HasViews;
-    use HasSeo;
     use HasTable;
-    use HasRoute;
-    use HasTemplate;
+    use HasTable;
+    use HasTags;
+    use HasTimestamps;
+    use HasViews;
 
     protected $fillable = [
         'name',
@@ -39,14 +39,14 @@ class News extends Model
         'status',
         'views',
         'source',
-        'author'
+        'author',
     ];
 
     public function getBreadcrumbs(): array
     {
         return [
-            StaticPage::query()->slug(news_slug())->first()->name ?? 'News' => '/' . news_slug(),
-            $this->name => $this->slug
+            '/' . news_slug() => StaticPage::query()->slug(news_slug())->first()->name ?? 'News',
+            $this->slug => $this->name,
         ];
     }
 
@@ -54,6 +54,7 @@ class News extends Model
     {
         return 'news';
     }
+
     public function route(): string
     {
         return tRoute('news-post', ['post' => $this->slug]);

@@ -10,6 +10,7 @@ use App\Traits\HasSorting;
 use App\Traits\HasStatus;
 use App\Traits\HasTable;
 use App\Traits\HasTags;
+use App\Traits\HasTemplate;
 use App\Traits\HasTimestamps;
 use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ class News extends Model
     use HasTags;
     use HasTimestamps;
     use HasViews;
+    use HasTemplate;
 
     protected $fillable = [
         'name',

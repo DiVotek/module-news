@@ -2,6 +2,7 @@
 
 namespace Modules\News\Admin;
 
+use App\Filament\Resources\StaticPageResource\RelationManagers\TemplateRelationManager;
 use App\Filament\Resources\TranslateResource\RelationManagers\TranslatableRelationManager;
 use App\Models\Setting;
 use App\Services\Schema;
@@ -123,12 +124,16 @@ class NewsResource extends Resource
 
     public static function getRelations(): array
     {
+        $relations = [
+            TranslatableRelationManager::class,
+            SeoRelationManager::class,
+        ];
+        if(module_enabled('Search')){
+            $relations[] = TagRelationManager::class;
+        }
+        $relations[] = TemplateRelationManager::class;
         return [
-            RelationGroup::make('Seo and translates', [
-                TranslatableRelationManager::class,
-                SeoRelationManager::class,
-                TagRelationManager::class,
-            ]),
+            RelationGroup::make('Seo and translates', $relations),
         ];
     }
 

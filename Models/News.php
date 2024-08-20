@@ -47,7 +47,9 @@ class News extends Model
     public function getBreadcrumbs(): array
     {
         return [
-            (StaticPage::query()->slug(news_slug())->first()->name ?? 'News') => news_slug(),
+            (StaticPage::query()->slug(news_slug())->first()->name ?? 'News') => tRoute('slug',[
+                'slug' => news_slug(),
+            ]),
             $this->name => $this->slug,
         ];
     }

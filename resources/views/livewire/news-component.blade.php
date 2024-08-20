@@ -6,7 +6,7 @@
             <x-link href="{{$item->route()}}" title="{{$item->name}}" class="block space-y-7 group">
                <div class="aspect-w-3 aspect-h-2 relative overflow-hidden">
                   <div class="text-base font-bold leading-none text-main-content size-10 md:size-14 flex flex-col justify-center items-center absolute top-4 left-2.5 z-10 bg-main">
-                     <x-core.date :date="$item->created_at" format="d M" />
+                     <x-date :date="$item->created_at" format="d M" />
                   </div>
                   <x-image src="{{$item->image}}" alt="{{$item->name}}" width="100" height="100" class="size-full object-contain transition-transform duration-300 group-hover:scale-110" />
                </div>

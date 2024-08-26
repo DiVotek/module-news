@@ -89,6 +89,7 @@ class NewsResource extends Resource
                     })->openUrlInNewTab(),
             ])
             ->headerActions([
+                Schema::helpAction('News help text'),
                 Tables\Actions\Action::make('Template')
                     ->slideOver()
                     ->icon('heroicon-o-cog')
@@ -124,16 +125,13 @@ class NewsResource extends Resource
 
     public static function getRelations(): array
     {
-        $relations = [
-            TranslatableRelationManager::class,
-            SeoRelationManager::class,
-        ];
-        if(module_enabled('Search')){
+        $relations = [];
+        if (module_enabled('Search')) {
             $relations[] = TagRelationManager::class;
         }
-        $relations[] = TemplateRelationManager::class;
         return [
-            RelationGroup::make('Seo and translates', $relations),
+            Schema::getSeoAndTemplateRelationGroup(),
+            RelationGroup::make('Other', $relations),
         ];
     }
 

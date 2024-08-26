@@ -13,9 +13,7 @@ class NewsPostPage extends PageComponent
 {
     public function __construct(Model $entity)
     {
-        if (empty($entity->template)) {
-            $entity->template = setting(config('settings.news.template'), []);
-        }
-        parent::__construct($entity, 'news::news-post-component');
+        $defaultTemplate = setting(config('settings.news.template'), []);
+        parent::__construct($entity, 'news::news-post-component',defaultTemplate: $defaultTemplate);
     }
 }

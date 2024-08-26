@@ -16,6 +16,6 @@ class NewsPostComponent extends Component
 
     public function render()
     {
-        return view('news::livewire.news-post-component');
+        return view('template::' . setting(config('settings.news.design'),'news-post.default'));
     }
 }

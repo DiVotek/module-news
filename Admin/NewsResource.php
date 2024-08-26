@@ -109,7 +109,7 @@ class NewsResource extends Resource
                         return $form
                             ->schema([
                                 Section::make('')->schema([
-                                    Schema::getModuleTemplateSelect('Pages/NewsPost'),
+                                    Schema::getModuleTemplateSelect('news-post'),
                                     Schema::getTemplateBuilder()->label(__('Template')),
                                 ]),
                             ]);

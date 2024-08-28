@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\News\Models\News;
 use Modules\Search\Admin\TagResource\RelationManagers\TagRelationManager;
 use Modules\Seo\Admin\SeoResource\Pages\SeoRelationManager;
+use Nwidart\Modules\Facades\Module;
 
 class NewsResource extends Resource
 {
@@ -50,6 +51,12 @@ class NewsResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $authorsField = [];
+        if (Module::find('Team') && Module::find('Team')->isEnabled()) {
+            $authorsField = [
+                Schema::getAuthors()
+            ];
+        }
         return $form
             ->schema([
                 Section::make()
@@ -59,7 +66,7 @@ class NewsResource extends Resource
                         Schema::getSorting(),
                         Schema::getStatus(),
                         Schema::getSource(),
-                        Schema::getAuthors(),
+                        ...$authorsField,
                         Schema::getImage(),
                     ]),
             ]);

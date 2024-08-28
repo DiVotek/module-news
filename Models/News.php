@@ -10,6 +10,7 @@ use App\Traits\HasSorting;
 use App\Traits\HasStatus;
 use App\Traits\HasTable;
 use App\Traits\HasTags;
+use App\Traits\HasTeam;
 use App\Traits\HasTemplate;
 use App\Traits\HasTimestamps;
 use App\Traits\HasViews;
@@ -32,6 +33,7 @@ class News extends Model
     use HasTimestamps;
     use HasViews;
     use HasTemplate;
+    use HasTeam;
 
     protected $fillable = [
         'name',

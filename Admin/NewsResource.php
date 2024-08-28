@@ -55,10 +55,11 @@ class NewsResource extends Resource
                 Section::make()
                     ->schema([
                         Schema::getReactiveName(),
-                        Schema::getStatus(),
                         Schema::getSlug(),
                         Schema::getSorting(),
+                        Schema::getStatus(),
                         Schema::getSource(),
+                        Schema::getAuthors(),
                         Schema::getImage(),
                     ]),
             ]);

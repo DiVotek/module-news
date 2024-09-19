@@ -13,6 +13,7 @@ use App\Traits\HasTags;
 use App\Traits\HasTeam;
 use App\Traits\HasTemplate;
 use App\Traits\HasTimestamps;
+use App\Traits\HasTranslate;
 use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,7 @@ class News extends Model
     use HasViews;
     use HasTemplate;
     use HasTeam;
+    use HasTranslate;
 
     protected $fillable = [
         'name',

@@ -29,7 +29,7 @@ class NewsComponent extends Component
             $design = $page->design;
         }
         return view('template::' . $design, [
-            'news' => News::query()->paginate(1)
+            'news' => News::query()->paginate(12)
         ]);
     }
 }

@@ -65,6 +65,6 @@ class News extends Model
 
     public function route(): string
     {
-        return tRoute('slug', ['slug' => news_slug(),'post' => $this->slug]);
+        return tRoute('news-post', ['post' => $this->slug]);
     }
 }

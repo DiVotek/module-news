@@ -2,6 +2,7 @@
 
 use App\Models\StaticPage;
 use App\Models\SystemPage;
+use App\Services\MultiLang;
 use Illuminate\Support\Facades\Route;
 use Modules\News\Controllers\NewsController;
 
@@ -13,3 +14,8 @@ if (!function_exists('news_slug')) {
    }
 }
 Route::get(news_slug() . '/{post}', [NewsController::class, 'post'])->name('news-post');
+if (is_multi_lang()) {
+   foreach (MultiLang::getActiveLanguages() as $language) {
+      Route::get($language->slug . '/' . news_slug() . '/{post}', [NewsController::class, 'post'])->name($language->slug . '.news-post');
+   }
+}
